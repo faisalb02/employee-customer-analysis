@@ -1,11 +1,11 @@
 import pandas as pd
 
-from data.loader import DataLoader
-from data.cleaner import DataCleaner
-from analysis.analyzer import DataAnalyzer
-from visualization.charts import VisualizationManager
-from reports.generator import ReportGenerator
-from api.client import APIClient
+from src.data.loader import DataLoader
+from src.data.cleaner import DataCleaner
+from src.analysis.analyzer import DataAnalyzer
+from src.visualization.charts import VisualizationManager
+from src.reports.generator import ReportGenerator
+from src.api.client import APIClient
 
 
 def main():

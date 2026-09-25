@@ -52,7 +52,10 @@ class DataCleaner(BaseDataProcessor):
 
     def clean(self, df):
         return self.process(df)
-
-
 class EmployeeDataProcessor(DataCleaner):
-    pass
+
+    def __init__(self):
+        super().__init__()
+
+    def process(self, df):
+        return super().process(df)
