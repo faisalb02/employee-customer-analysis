@@ -1,60 +1,55 @@
 import json
-import os
+from pathlib import Path
 
 
 class ReportGenerator:
 
-    def __init__(self):
-        os.makedirs("outputs/reports", exist_ok=True)
-
     def generate(self, results):
 
-        report = f"""# Employee Analysis Report
+        output_dir = Path("outputs/reports")
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-## Dataset Overview
+        # Convert results to text
+        if isinstance(results, list):
+            findings = results
+        else:
+            findings = [str(results)]
 
-- Total Employees: {results['total_employees']}
-- Average Salary: {results['average_salary']:.2f}
-- Minimum Salary: {results['minimum_salary']:.2f}
-- Maximum Salary: {results['maximum_salary']:.2f}
-- Average Experience: {results['average_experience']:.2f} years
+        # Markdown report
+        report = "# Employee Data Analysis Report\n\n"
+        report += "## Key Findings\n\n"
 
-## Department Salary
-
-"""
-
-        for dept, salary in results["department_salary"].items():
-            report += f"- {dept}: {salary:.2f}\n"
-
-        report += """
-## Key Findings
-
-1. The dataset contains 10,000 employees.
-2. Salary varies across departments.
-3. Employee experience can be compared with salary.
-4. Department headcount varies across departments.
-5. The dataset was cleaned and enriched with department information.
-"""
+        for i, finding in enumerate(findings, 1):
+            report += f"{i}. {finding}\n"
 
         with open(
-            "outputs/reports/analysis_report.md",
+            output_dir / "analysis_report.md",
             "w",
             encoding="utf-8"
         ) as file:
             file.write(report)
+
+        # JSON summary
+        summary = {
+            "findings": findings
+        }
 
         with open(
             "outputs/analysis_summary.json",
             "w",
             encoding="utf-8"
         ) as file:
-            json.dump(results, file, indent=4)
+            json.dump(summary, file, indent=4)
 
+        # TXT summary
         with open(
             "outputs/analysis_summary.txt",
             "w",
             encoding="utf-8"
         ) as file:
-            file.write(report)
+            file.write("Employee Data Analysis Summary\n\n")
+
+            for i, finding in enumerate(findings, 1):
+                file.write(f"{i}. {finding}\n")
 
         print("Reports generated successfully.")

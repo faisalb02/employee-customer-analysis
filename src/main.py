@@ -21,15 +21,15 @@ def main():
     cleaner = DataCleaner()
     cleaned_df = cleaner.clean(df)
 
+    print("\nCleaned Dataset:")
+    print(cleaned_df.head())
+    print("Cleaned Shape:", cleaned_df.shape)
+
     # Save cleaned dataset
     cleaned_df.to_csv(
         "data/processed/cleaned_employees.csv",
         index=False
     )
-
-    print("\nCleaned Dataset:")
-    print(cleaned_df.head())
-    print("Cleaned Shape:", cleaned_df.shape)
 
     # Enrich with department data
     departments_df = pd.read_csv("data/raw/departments.csv")
@@ -49,21 +49,25 @@ def main():
     print("Merged Shape:", merged_df.shape)
 
     # Analyze dataset
-    analyzer = DataAnalyzer()
-    results = analyzer.analyze(cleaned_df)
+    analyzer = DataAnalyzer(cleaned_df)
+    results = analyzer.analyze()
 
     print("\nAnalysis Results:")
     print(results)
 
     # Create charts
-    visualizer = VisualizationManager()
-    visualizer.create_charts(cleaned_df)
+    visualizer = VisualizationManager(cleaned_df)
+    visualizer.create_charts()
+
     # Generate reports
     report_generator = ReportGenerator()
     report_generator.generate(results)
 
     # API integration
-    api_client = APIClient("https://jsonplaceholder.typicode.com/posts/1")
+    api_client = APIClient(
+        "https://jsonplaceholder.typicode.com/users"
+    )
+
     api_data = api_client.get_data()
 
     if api_data:

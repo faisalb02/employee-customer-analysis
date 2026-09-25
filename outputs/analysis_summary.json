@@ -1,21 +1,9 @@
 {
-    "total_employees": 10000,
-    "average_salary": 79708.9585,
-    "maximum_salary": 119980.0,
-    "minimum_salary": 40002.0,
-    "average_experience": 16.8848,
-    "department_salary": {
-        "HR": 80339.82240578214,
-        "IT": 80132.838756678,
-        "Marketing": 79890.85924796748,
-        "Operations": 79117.43320235757,
-        "Finance": 79084.7645
-    },
-    "department_count": {
-        "IT": 2059,
-        "Operations": 2036,
-        "Finance": 2000,
-        "Marketing": 1968,
-        "HR": 1937
-    }
+    "findings": [
+        "IT has the highest employee count.",
+        "HR has the highest average salary.",
+        "Average salary is 79708.96.",
+        "Salary standard deviation is 23180.41.",
+        "Experience and salary correlation is 0.01."
+    ]
 }
