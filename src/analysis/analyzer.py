@@ -22,6 +22,10 @@ class DataAnalyzer:
 
     def salary_statistics(self):
         salary = self.df["Salary"].dropna()
+        salary_array = np.array(salary)
+        reshaped_salary = salary_array.reshape(-1, 1)
+        broadcasted_salary = reshaped_salary + 1000
+        dot_result = np.dot(salary_array[:5], salary_array[:5])
 
         return {
             "mean": np.mean(salary),
